@@ -7,6 +7,12 @@ use Statamic\Http\Controllers\Controller;
 
 class StatamicRepoSyncAzureController extends Controller
 {
+
+    public function index(Request $request)
+    {
+        return view('reposyncazure::index', []);
+    }
+
     public function show(Request $request)
     {
         /*if ($file = $request->log) {
@@ -22,5 +28,10 @@ class StatamicRepoSyncAzureController extends Controller
             'files' => [],
             'currentFile' => [],
         ]);
+    }
+
+    public function settings(Request $request)
+    {
+        return view('reposyncazure::settings', []);
     }
 }
