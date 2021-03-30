@@ -42,6 +42,10 @@ class StatamicRepoSyncAzureServiceProvider extends AddonServiceProvider
             ->description(__('Sync web apps stored on Azure with Statamic V3'))
             ->routes(function (Router $router) {
                 $router->get('/', [StatamicRepoSyncAzureController::class, 'show'])->name('show');
+                $router->get('/xx', [StatamicRepoSyncAzureController::class, 'show'])->name('show');
+                $router->get('/xxxx', function () {
+                    dd('ok!');
+                })->name('show');
                 // $router->delete('/delete', [StatamicRepoSyncAzureController::class, 'destroy'])->name('destroy');
             })
             ->register();
