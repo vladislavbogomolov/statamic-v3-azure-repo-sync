@@ -9,7 +9,6 @@ show.blade.php@extends('statamic::layout')
         <div class="flex items-center mb-3">
             <h1 class="flex-1">{{ __('WebApps') }}</h1>
             <a href="{{ cp_route('globals.create') }}" class="btn-primary">{{ __('Add new') }}</a>
-            <a href="{{ cp_route('utilities.reposyncazure.settings') }}" class="btn ml-5">{{ __('Settings') }}</a>
         </div>
 
         <global-listing :globals="{{ json_encode(false) }}"></global-listing>
