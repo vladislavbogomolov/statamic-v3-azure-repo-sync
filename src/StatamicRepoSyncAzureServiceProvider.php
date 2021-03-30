@@ -4,7 +4,7 @@ namespace VladislavBogomolov\StatamicRepoSyncAzure;
 
 use Statamic\Facades\Utility;
 use Illuminate\Routing\Router;
-use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route;
 use Statamic\Providers\AddonServiceProvider;
 use Statamic\Statamic;
 
