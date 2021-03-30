@@ -12,26 +12,4 @@ class StatamicRepoSyncAzureController extends Controller
     {
         return view('reposyncazure::index', []);
     }
-
-    public function show(Request $request)
-    {
-        /*if ($file = $request->log) {
-            $logviewer->setFile(urldecode($file));
-        }
-
-        if ($request->has('download')) {
-            return response()->download($logviewer->pathToLogFile(urldecode($file)));
-        }*/
-
-        return view('reposyncazure::show', [
-            'logs' => [],
-            'files' => [],
-            'currentFile' => [],
-        ]);
-    }
-
-    public function settings(Request $request)
-    {
-        return view('reposyncazure::settings', []);
-    }
 }

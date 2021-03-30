@@ -20,7 +20,7 @@ class StatamicRepoSyncAzureServiceProvider extends AddonServiceProvider
 
 
         $this->publishes([
-            __DIR__.'/../config/updater_webapp.php' => config_path('updater_webapp.php.php')
+            __DIR__.'/../config/updater_webapp.php' => config_path('updater_webapp.php')
         ], 'config');
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'reposyncazure');
