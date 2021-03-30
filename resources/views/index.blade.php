@@ -1,4 +1,4 @@
-show.blade.php@extends('statamic::layout')
+@extends('statamic::layout')
 @section('title', Statamic::crumb(__('Updater!'), __('Utilities')))
 @section('wrapper_class', 'max-w-full')
 
