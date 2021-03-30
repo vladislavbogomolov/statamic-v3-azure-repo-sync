@@ -20,9 +20,9 @@ class StatamicRepoSyncAzureServiceProvider extends AddonServiceProvider
 
         Statamic::booted(function () {
             $this->registerCpRoutes(function () {
-                Route::get('/xxx', [StatamicRepoSyncAzureController::class, function () {
+                Route::get('/xxx', function () {
                     dd('ok!');
-                }])->name('show');
+                })->name('show');
             });
 
             /*$this->registerWebRoutes(function () {
