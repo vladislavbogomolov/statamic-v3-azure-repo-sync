@@ -6,6 +6,7 @@ use Statamic\Facades\Utility;
 use Illuminate\Routing\Router;
 use Illuminate\Routing\Route;
 use Statamic\Providers\AddonServiceProvider;
+use Statamic\Statamic;
 
 class StatamicRepoSyncAzureServiceProvider extends AddonServiceProvider
 {
@@ -16,6 +17,22 @@ class StatamicRepoSyncAzureServiceProvider extends AddonServiceProvider
     public function boot()
     {
         parent::boot();
+
+        Statamic::booted(function () {
+            $this->registerCpRoutes(function () {
+                Route::get('/xxx', [StatamicRepoSyncAzureController::class, function () {
+                    dd('ok!');
+                }])->name('show');;
+            });
+
+            /*$this->registerWebRoutes(function () {
+                Route::get(...);
+            });
+
+            $this->registerActionRoutes(function () {
+                Route::get(...);
+            });*/
+        });
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'reposyncazure');
 
@@ -28,9 +45,5 @@ class StatamicRepoSyncAzureServiceProvider extends AddonServiceProvider
                 // $router->delete('/delete', [StatamicRepoSyncAzureController::class, 'destroy'])->name('destroy');
             })
             ->register();
-
-        $this->registerCpRoutes(function () {
-            Route::get('/vlad', [StatamicRepoSyncAzureController::class, 'show']);
-        });
     }
 }
