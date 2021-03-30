@@ -4,7 +4,7 @@ namespace VladislavBogomolov\StatamicRepoSyncAzure;
 
 use Statamic\Facades\Utility;
 use Illuminate\Routing\Router;
-// use Illuminate\Routing\Route;
+use Illuminate\Routing\Route;
 use Statamic\Providers\AddonServiceProvider;
 use Statamic\Statamic;
 
@@ -18,7 +18,7 @@ class StatamicRepoSyncAzureServiceProvider extends AddonServiceProvider
     {
         parent::boot();
 
-        /*Statamic::booted(function () {
+        Statamic::booted(function () {
             $this->registerCpRoutes(function () {
                 /*Route::get('/', [StatamicRepoSyncAzureController::class, function () {
                     dd('ok!');
@@ -32,7 +32,7 @@ class StatamicRepoSyncAzureServiceProvider extends AddonServiceProvider
             $this->registerActionRoutes(function () {
                 Route::get(...);
             });*/
-        });*/
+        });
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'reposyncazure');
 
