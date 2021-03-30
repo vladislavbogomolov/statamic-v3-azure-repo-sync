@@ -14,18 +14,18 @@ class StatamicRepoSyncAzureServiceProvider extends AddonServiceProvider
         __DIR__.'/../resources/js/logbook.js'
     ];*/
 
-    protected $config = [
+    /*protected $config = [
         __DIR__.'/../config/updater_webapp.php'
-    ];
+    ];*/
 
     public function boot()
     {
         parent::boot();
 
 
-        $this->publishes([
+        /*$this->publishes([
             __DIR__.'/../config/updater_webapp.php' => config_path('updater_webapp.php')
-        ], 'config');
+        ], 'config');*/
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'reposyncazure');
 
