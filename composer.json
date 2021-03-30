@@ -1,0 +1,33 @@
+{
+  "name": "vladislavbogomolov/repo-sync-azure",
+  "type": "statamic-addon",
+  "description": "Sync web apps stored on Azure with Statamic V3",
+  "autoload": {
+    "psr-4": {
+      "VladislavBogomolov\\StatamicRepoSyncAzure\\": "src"
+    }
+  },
+  "authors": [
+    {
+      "name": "Vladislav Bogomolov",
+      "email": "bogomolov.vlad@gmail.com"
+    }
+  ],
+  "require": {
+    "statamic/cms": "^3.0"
+  },
+  "extra": {
+    "statamic": {
+      "name": "Repo Sync Azure",
+      "description": "Sync web apps stored on Azure with Statamic V3",
+      "version": "0.0.1"
+    },
+    "laravel": {
+      "providers": [
+        "VladislavBogomolov\\StatamicRepoSyncAzure\\StatamicRepoSyncAzureServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
