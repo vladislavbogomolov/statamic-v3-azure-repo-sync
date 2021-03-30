@@ -14,6 +14,10 @@ class StatamicRepoSyncAzureServiceProvider extends AddonServiceProvider
         __DIR__.'/../resources/js/logbook.js'
     ];*/
 
+    protected $config = [
+        __DIR__.'/../config/updater_webapp.php'
+    ];
+
     public function boot()
     {
         parent::boot();
