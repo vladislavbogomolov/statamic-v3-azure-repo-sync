@@ -4,6 +4,7 @@ namespace VladislavBogomolov\StatamicRepoSyncAzure;
 
 use Statamic\Facades\Utility;
 use Illuminate\Routing\Router;
+use Illuminate\Routing\Route;
 use Statamic\Providers\AddonServiceProvider;
 
 class StatamicRepoSyncAzureServiceProvider extends AddonServiceProvider
@@ -27,5 +28,9 @@ class StatamicRepoSyncAzureServiceProvider extends AddonServiceProvider
                 // $router->delete('/delete', [StatamicRepoSyncAzureController::class, 'destroy'])->name('destroy');
             })
             ->register();
+
+        $this->registerCpRoutes(function () {
+            Route::get('/vlad', [StatamicRepoSyncAzureController::class, 'show']);
+        });
     }
 }
