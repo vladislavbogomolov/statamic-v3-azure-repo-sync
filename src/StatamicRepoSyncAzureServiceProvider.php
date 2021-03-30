@@ -17,9 +17,9 @@ class StatamicRepoSyncAzureServiceProvider extends AddonServiceProvider
     {
         parent::boot();
 
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'repo_sync_azure');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'reposyncazure');
 
-        Utility::make('repo_sync_azure')
+        Utility::make('reposyncazure')
             ->title(__('Updater!'))
             ->icon('book-pages')
             ->description(__('Sync web apps stored on Azure with Statamic V3'))

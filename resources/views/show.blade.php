@@ -7,8 +7,8 @@
     <header class="mb-3">
         @include('statamic::partials.breadcrumb', [
             'url' => cp_route('utilities.index'),
-            'title' => __('Utilities')
+            'title' => __('reposyncazure')
         ])
-        <h1>{{ __('repo_sync_azure') }}</h1>
+        <h1>{{ __('reposyncazure') }}</h1>
     </header>
 @stop

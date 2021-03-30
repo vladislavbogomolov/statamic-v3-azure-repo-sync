@@ -17,7 +17,7 @@ class StatamicRepoSyncAzureController extends Controller
             return response()->download($logviewer->pathToLogFile(urldecode($file)));
         }*/
 
-        return view('repo_sync_azure::show', [
+        return view('reposyncazure::show', [
             'logs' => [],
             'files' => [],
             'currentFile' => [],
