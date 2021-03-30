@@ -9,6 +9,6 @@
             'url' => cp_route('utilities.index'),
             'title' => __('Utilities')
         ])
-        <h1>{{ __('Updater') }}</h1>
+        <h1>{{ __('repo_sync_azure') }}</h1>
     </header>
 @stop
