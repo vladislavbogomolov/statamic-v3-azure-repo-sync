@@ -9,6 +9,6 @@
             'url' => cp_route('utilities.index'),
             'title' => __('Updater WebApp')
         ])
-        <h1>{{ __('Updater WebApp') }}</h1>
+        <h1>{{ __('Settings') }}</h1>
     </header>
 @stop

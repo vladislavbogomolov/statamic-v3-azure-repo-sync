@@ -19,34 +19,31 @@ class StatamicRepoSyncAzureServiceProvider extends AddonServiceProvider
         parent::boot();
 
 
-        Statamic::booted(function () {
+        /*Statamic::booted(function () {
             $this->registerCpRoutes(function () {
                 Route::get('/xxx', function () {
                     dd('ok!');
                 })->name('show1');
             });
 
-            /*$this->registerWebRoutes(function () {
-                Route::get(...);
+            $this->registerWebRoutes(function () {
+                // Route::get(...);
             });
 
             $this->registerActionRoutes(function () {
-                Route::get(...);
-            });*/
-        });
+                // Route::get(...);
+            });
+        });*/
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'reposyncazure');
 
         Utility::make('reposyncazure')
-            ->title(__('Updater!'))
-            ->icon('book-pages')
+            ->title(__('Updater WebApp'))
+            ->icon('addons')
             ->description(__('Sync web apps stored on Azure with Statamic V3'))
             ->routes(function (Router $router) {
                 $router->get('/', [StatamicRepoSyncAzureController::class, 'show'])->name('show');
-                $router->get('/xx', [StatamicRepoSyncAzureController::class, 'show'])->name('show');
-                $router->get('/xxxx', function () {
-                    dd('ok!');
-                })->name('show');
+                $router->get('/settings', [StatamicRepoSyncAzureController::class, 'show'])->name('show');
                 // $router->delete('/delete', [StatamicRepoSyncAzureController::class, 'destroy'])->name('destroy');
             })
             ->register();
