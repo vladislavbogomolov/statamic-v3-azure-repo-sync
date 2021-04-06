@@ -47,7 +47,7 @@
                             >
                                 {{ $build->id }}
                                 {{ $build->status }}
-                                {{ $build->result }}
+                                @if (isset($build->result)) {{ $build->result }} @endif
                                 {{ $build->buildNumber }}
 
                             </option>
