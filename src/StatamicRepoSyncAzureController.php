@@ -40,6 +40,18 @@ class StatamicRepoSyncAzureController extends Controller
         file_put_contents(resource_path($this->_config_path . $this->_config_file), $yaml);
     }
 
+    public function getLastUpdatedTime($projectName)
+    {
+        foreach ($this->_config['projects'] as &$project)
+        {
+            if ($project['name'] === $projectName) {
+                return $project['updated_at'];
+            }
+        }
+
+        return null;
+    }
+
     public function isExists($repoName)
     {
         foreach ($this->_config['projects'] as &$project)

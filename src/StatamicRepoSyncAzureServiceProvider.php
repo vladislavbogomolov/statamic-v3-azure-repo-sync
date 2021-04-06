@@ -14,6 +14,10 @@ class StatamicRepoSyncAzureServiceProvider extends AddonServiceProvider
         __DIR__.'/../resources/js/logbook.js'
     ];*/
 
+    protected $modifiers = [
+        'VladislavBogomolov\StatamicRepoSyncAzure\StatamicRepoModifier'
+    ];
+
     public function boot()
     {
         parent::boot();
