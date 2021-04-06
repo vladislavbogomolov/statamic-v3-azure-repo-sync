@@ -25,7 +25,7 @@ class StatamicRepoSyncAzureController extends Controller
 
     public function __construct()
     {
-        $this->_config = Yaml::parseFile( resource_path($this->_config_path . $this->_config_file));
+        $this->_config = Yaml::parseFile(resource_path($this->_config_path . $this->_config_file));
         $this->_config_organization = config('repo-sync-azure.organization');
         $this->_config_token = config('repo-sync-azure.token');
         $this->_headers = [
@@ -42,8 +42,7 @@ class StatamicRepoSyncAzureController extends Controller
 
     public function getLastUpdatedTime($projectName)
     {
-        foreach ($this->_config['projects'] as &$project)
-        {
+        foreach ($this->_config['projects'] as &$project) {
             if ($project['name'] === $projectName) {
                 return $project['updated_at'];
             }
@@ -54,8 +53,7 @@ class StatamicRepoSyncAzureController extends Controller
 
     public function isExists($repoName)
     {
-        foreach ($this->_config['projects'] as &$project)
-        {
+        foreach ($this->_config['projects'] as &$project) {
             if ($project['name'] === $repoName) {
                 return true;
             }
@@ -74,11 +72,11 @@ class StatamicRepoSyncAzureController extends Controller
 
     public function getRepos()
     {
-        $url = 'https://dev.azure.com/'.$this->_config_organization.'/_apis/projects?api-version=6.0';
+        $url = 'https://dev.azure.com/' . $this->_config_organization . '/_apis/projects?api-version=6.0';
 
         return \Http::withHeaders([
             'Content-Type' => 'application/json',
-            'Authorization' => 'Basic'.base64_encode(":" . $this->_config_token)
+            'Authorization' => 'Basic' . base64_encode(":" . $this->_config_token)
         ])->get($url)->json();
     }
 
@@ -169,7 +167,8 @@ class StatamicRepoSyncAzureController extends Controller
         ]);
     }
 
-    public function delete($index) {
+    public function delete($index)
+    {
         $projects = $this->_config['projects'];
         unset($projects[$index]);
         $this->_config['projects'] = array_values($projects);
@@ -177,16 +176,39 @@ class StatamicRepoSyncAzureController extends Controller
         return redirect()->route('statamic.cp.utilities.reposyncazure.index');
     }
 
-    public function download($index) {
+    public function download($index)
+    {
 
 
         $project = $this->_config['projects'][$index];
+
+        if (is_null($project['build'])) {
+            return redirect()->route('statamic.cp.utilities.reposyncazure.index');
+        }
+
+        $this->downloadBuild($project);
+
+        $project['updated_at'] = date("Y-m-d H:i:s");
+        $this->_config['projects'][$index] = $project;
+        $this->saveConfig();
+
+
+        return redirect()->route('statamic.cp.utilities.reposyncazure.index');
+    }
+
+    public function downloadBuild($project)
+    {
+
+        if (is_null($project['build'])) {
+            return false;
+        }
+
         $this->_createDirectory($project);
 
         $response = \Http::withHeaders([
             'Content-Type' => 'application/json',
-            'Authorization' => 'Basic'.base64_encode(":" . $this->_config_token)
-        ])->get('https://dev.azure.com/HumanCompany/'.$project['id'].'/_apis/build/Builds/'.$project['build'].'/artifacts');
+            'Authorization' => 'Basic' . base64_encode(":" . $this->_config_token)
+        ])->get('https://dev.azure.com/HumanCompany/' . $project['id'] . '/_apis/build/Builds/' . $project['build'] . '/artifacts');
 
         if (!$response->successful()) {
             dd('ko');
@@ -198,12 +220,12 @@ class StatamicRepoSyncAzureController extends Controller
 
         $drop = \Http::withHeaders([
             'Content-Type' => 'application/json',
-            'Authorization' => 'Basic'.base64_encode(":" . $this->_config_token)
+            'Authorization' => 'Basic' . base64_encode(":" . $this->_config_token)
         ])->get($urlArtifact);
 
-        $saveArtifactZip = public_path($this->_webappsDir.$project['name'].'/artifact.zip');
-        $distDir = public_path($this->_webappsDir.$project['name'].'/dist_addon');
-        file_put_contents( $saveArtifactZip, $drop );
+        $saveArtifactZip = public_path($this->_webappsDir . $project['name'] . '/artifact.zip');
+        $distDir = public_path($this->_webappsDir . $project['name'] . '/dist_addon');
+        file_put_contents($saveArtifactZip, $drop);
 
         $zip = new \ZipArchive();
 
@@ -218,26 +240,21 @@ class StatamicRepoSyncAzureController extends Controller
 
         \File::delete($saveArtifactZip);
 
-        if (!$zip->open($distDir.'/drop/'.$project['build'].'.zip')) {
+        if (!$zip->open($distDir . '/drop/' . $project['build'] . '.zip')) {
             dd('ko');
         }
-        $zip->extractTo(public_path($this->_webappsDir.$project['name']));
+        $zip->extractTo(public_path($this->_webappsDir . $project['name']));
         $zip->close();
         \File::deleteDirectory($distDir);
 
-        $project['updated_at'] = date("Y-m-d H:i:s");
-        $this->_config['projects'][$index] = $project;
-        $this->saveConfig();
 
-
-        return redirect()->route('statamic.cp.utilities.reposyncazure.index');
     }
 
     private function _createDirectory($project)
     {
 
         $this->_webappsDir = 'webapps/';
-        $projectDir = $this->_webappsDir.$project['name'].'/';
+        $projectDir = $this->_webappsDir . $project['name'] . '/';
 
         if (!\File::isDirectory(public_path($this->_webappsDir))) {
             \File::makeDirectory(public_path($this->_webappsDir), 0755, true, true);
@@ -249,7 +266,8 @@ class StatamicRepoSyncAzureController extends Controller
     }
 
 
-    public function createConfigFile() {
+    public function createConfigFile()
+    {
 
 
         if (!\File::exists(resource_path($this->_config_path . $this->_config_file))) {
@@ -259,9 +277,17 @@ class StatamicRepoSyncAzureController extends Controller
             }
 
             $yaml = Yaml::dump([
-                        'projects' => []
-                    ]);
+                'projects' => []
+            ]);
             file_put_contents(resource_path($this->_config_path . $this->_config_file), $yaml);
+        }
+    }
+
+    public function downloadAllProjects()
+    {
+        foreach ($this->_config['projects'] as $project)
+        {
+            $this->downloadBuild($project);
         }
     }
 }
@@ -271,8 +297,8 @@ class isValidRepoRule implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param string $attribute
+     * @param mixed $value
      * @return bool
      */
 
@@ -303,8 +329,8 @@ class isUniqueRepoRule implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param string $attribute
+     * @param mixed $value
      * @return bool
      */
 

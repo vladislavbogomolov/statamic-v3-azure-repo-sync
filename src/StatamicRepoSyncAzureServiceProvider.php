@@ -18,6 +18,10 @@ class StatamicRepoSyncAzureServiceProvider extends AddonServiceProvider
         'VladislavBogomolov\StatamicRepoSyncAzure\StatamicRepoModifier'
     ];
 
+    protected $commands = [
+        'VladislavBogomolov\StatamicRepoSyncAzure\StatamicRepoCommand'
+    ];
+
     public function boot()
     {
         parent::boot();
