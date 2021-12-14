@@ -28,7 +28,9 @@ class StatamicRepoSyncAzureController extends Controller
         $file_config = resource_path($this->_config_path . $this->_config_file);
         if (!file_exists($file_config)) {
             mkdir( resource_path($this->_config_path), 0777, true);
-            file_put_contents($file_config, []);
+            file_put_contents($file_config, [
+                'projects' => []
+            ]);
         }
         $this->_config = Yaml::parseFile($file_config);
         $this->_config_organization = config('repo-sync-azure.organization');
