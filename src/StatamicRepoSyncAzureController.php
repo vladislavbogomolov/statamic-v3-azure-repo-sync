@@ -129,7 +129,7 @@ class StatamicRepoSyncAzureController extends Controller
 
         if (!$this->_config_token) {
             return view('reposyncazure::create', [
-                'errors' => [
+                'system_errors' => [
                     'message' => 'Token of Azure is empty. Set your env UPDATER_WEBAPP_ORG & UPDATER_WEBAPP_TOKEN'
                 ]
             ]);

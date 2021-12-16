@@ -3,6 +3,23 @@
 @section('wrapper_class', 'max-w-full')
 
 @section('content')
+
+    @if(isset($system_errors))
+        <div class="flex items-center mb-3">
+            <h1 class="flex-1">{{ __('WebApps') }}</h1>
+        </div>
+
+        <div class="max-w-lg mt-2 mx-auto">
+            <div class="rounded p-3 lg:px-7 lg:py-5 shadow bg-white">
+                <header class="text-center mb-6">
+                    <h1 class="mb-3">{{ __('Add new WebApp') }}</h1>
+                </header>
+                <div class="mb-2 text-center">
+                    Set UPDATER_WEBAPP_ORG & UPDATER_WEBAPP_TOKEN
+                </div>
+            </div>
+        </div>
+    @else
         <div class="flex items-center mb-3">
             <h1 class="flex-1">{{ __('WebApps') }}</h1>
             <a href="{{ cp_route('globals.create') }}" class="btn-primary">{{ __('Add') }}</a>
@@ -50,5 +67,6 @@
                 </div>
             </form>
         </div>
+    @endif
 @endsection
 

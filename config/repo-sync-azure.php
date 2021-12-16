@@ -1,5 +1,5 @@
 <?php
-    return [
-        'organization' => env('STATAMIC_API_ENABLED', ''),
-        'token' => env('UPDATER_WEBAPP', ''),
-    ];
+return [
+    'organization' => env('UPDATER_WEBAPP_ORG', ''),
+    'token' => env('UPDATER_WEBAPP_TOKEN', ''),
+];
