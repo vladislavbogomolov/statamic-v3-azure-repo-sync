@@ -36,6 +36,7 @@ class StatamicRepoSyncAzureController extends Controller
         $this->_config = Yaml::parseFile($file_config);
         $this->_config_organization = config('repo-sync-azure.organization');
         $this->_config_token = config('repo-sync-azure.token');
+
         $this->_headers = [
             'Content-Type:application/json',
             'Authorization: Basic ' . base64_encode(":" . $this->_config_token)
@@ -82,6 +83,7 @@ class StatamicRepoSyncAzureController extends Controller
     {
         $url = 'https://dev.azure.com/' . $this->_config_organization . '/_apis/projects?api-version=6.0';
 
+
         return \Http::withHeaders([
             'Content-Type' => 'application/json',
             'Authorization' => 'Basic' . base64_encode(":" . $this->_config_token)
@@ -124,6 +126,14 @@ class StatamicRepoSyncAzureController extends Controller
 
     public function create(Request $request)
     {
+
+        if (!$this->_config_token) {
+            return view('reposyncazure::create', [
+                'errors' => [
+                    'message' => 'Token of Azure is empty. Set your env UPDATER_WEBAPP_ORG & UPDATER_WEBAPP_TOKEN'
+                ]
+            ]);
+        }
 
         return view('reposyncazure::create', [
             'repos' => $this->getRepos()['value']
