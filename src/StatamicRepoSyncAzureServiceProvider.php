@@ -33,7 +33,7 @@ class StatamicRepoSyncAzureServiceProvider extends AddonServiceProvider
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'reposyncazure');
 
-        Utility::make('reposyncazure')
+        /*Utility::make('reposyncazure')
             ->title(__('Updater WebApp'))
             ->icon('addons')
             ->description(__('Sync web apps stored on Azure with Statamic V3'))
@@ -50,7 +50,7 @@ class StatamicRepoSyncAzureServiceProvider extends AddonServiceProvider
                 $router->put('/{index}', [StatamicRepoSyncAzureController::class, 'update'])->name('update');
                 $router->delete('/{index}', [StatamicRepoSyncAzureController::class, 'delete'])->name('delete');
             })
-            ->register();
+            ->register();*/
 
         Statamic::afterInstalled(function ($command) {
             (new StatamicRepoSyncAzureController)->createConfigFile();
